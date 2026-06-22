@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUST Entry Test Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar glass-card">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <h1>NUST Entry Test Portal</h1>
+          <p>Modern, secure, and responsive admission assessment</p>
+        </div>
+      </div>
+      <button id="theme-toggle" class="btn secondary-btn">Dark Mode</button>
+    </header>
+
+    <main class="content">
+      <section id="welcome-screen" class="screen active">
+        <div class="hero glass-card">
+          <div class="hero-copy">
+            <h2>Welcome to the NUST Entry Test Experience</h2>
+            <p>Prepare to take a fully featured, mobile-ready test with automatic saving, review flags, and full analytics.</p>
+          </div>
+          <div class="hero-form glass-card-small">
+            <h3>Start Your Test</h3>
+            <div id="resume-banner" class="resume-banner hidden">
+              <p>You have a saved test in progress.</p>
+              <button id="resume-test-btn" class="btn accent-btn">Resume Test</button>
+            </div>
+            <div class="form-group">
+              <label for="candidate-name">Candidate Name</label>
+              <input id="candidate-name" type="text" placeholder="Enter your full name" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="roll-number">Roll Number</label>
+              <input id="roll-number" type="text" placeholder="Enter your roll number" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="subject-order">Preferred Subject Order</label>
+              <select id="subject-order">
+                <option value="Mathematics,Physics,English">Mathematics → Physics → English</option>
+                <option value="Physics,Mathematics,English">Physics → Mathematics → English</option>
+                <option value="English,Physics,Mathematics">English → Physics → Mathematics</option>
+              </select>
+            </div>
+            <button id="welcome-start-btn" class="btn primary-btn">Proceed to Instructions</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="instructions-screen" class="screen hidden">
+        <div class="glass-card pane">
+          <div class="pane-header">
+            <h2>Test Instructions</h2>
+            <p>Read the guidelines carefully before starting the exam.</p>
+          </div>
+          <ul class="instruction-list">
+            <li>There are 200 multiple choice questions across English, Physics, and Mathematics.</li>
+            <li>Each question appears one at a time. Use Previous, Next, Skip, and Mark for Review options.</li>
+            <li>The timer is set for 180 minutes. The test will auto submit when time ends.</li>
+            <li>Your answers are automatically saved in local storage.</li>
+            <li>You can restart the test at any point or print/download your result after submission.</li>
+          </ul>
+          <div class="instruction-actions">
+            <button id="back-to-welcome" class="btn secondary-btn">Back</button>
+            <button id="instruction-start-btn" class="btn primary-btn">Start Test</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="quiz-screen" class="screen hidden">
+        <div class="quiz-header glass-card pane">
+          <div>
+            <h2>Entry Test</h2>
+            <p id="candidate-details"></p>
+          </div>
+          <div class="timer-card">
+            <p>Time Remaining</p>
+            <div id="countdown-timer">03:00:00</div>
+          </div>
+        </div>
+
+        <div class="quiz-status glass-card pane">
+          <div class="progress-group">
+            <label>Progress</label>
+            <div class="progress-track">
+              <div id="question-progress" class="progress-fill"></div>
+            </div>
+            <span id="progress-label">1 / 200</span>
+          </div>
+          <div class="status-grid">
+            <div><strong id="attempted-count">0</strong><span>Attempted</span></div>
+            <div><strong id="review-count">0</strong><span>Marked</span></div>
+            <div><strong id="skipped-count">0</strong><span>Skipped</span></div>
+          </div>
+        </div>
+
+        <div class="quiz-body">
+          <div class="question-panel glass-card">
+            <div class="question-top">
+              <p class="question-tag" id="question-tag">Subject: English | Topic: Vocabulary</p>
+              <h3 id="question-text">Question text will appear here.</h3>
+            </div>
+            <div id="options-container" class="options-grid"></div>
+          </div>
+
+          <aside class="palette-panel glass-card">
+            <div class="palette-header">
+              <h4>Question Palette</h4>
+              <p>Tap any number to jump directly to that question.</p>
+            </div>
+            <div id="question-palette" class="palette-grid"></div>
+          </aside>
+        </div>
+
+        <div class="quiz-actions glass-card action-row">
+          <button id="prev-btn" class="btn secondary-btn">Previous</button>
+          <button id="skip-btn" class="btn secondary-btn">Skip</button>
+          <button id="review-btn" class="btn secondary-btn">Mark for Review</button>
+          <button id="next-btn" class="btn primary-btn">Next</button>
+          <button id="submit-btn" class="btn accent-btn">Submit Test</button>
+        </div>
+      </section>
+
+      <section id="result-screen" class="screen hidden">
+        <div class="glass-card pane">
+          <div class="pane-header">
+            <h2>Test Result</h2>
+            <p>Detailed performance summary and analytics.</p>
+          </div>
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Candidate</h3>
+              <p id="result-candidate-name"></p>
+              <p id="result-roll-number"></p>
+            </div>
+            <div class="result-card">
+              <h3>Overall Score</h3>
+              <p><strong id="result-percentage">0%</strong></p>
+              <p id="result-passfail"></p>
+            </div>
+            <div class="result-card">
+              <h3>Summary</h3>
+              <p>Total Questions: <span id="result-total"></span></p>
+              <p>Attempted: <span id="result-attempted"></span></p>
+              <p>Correct: <span id="result-correct"></span></p>
+              <p>Wrong: <span id="result-wrong"></span></p>
+              <p>Skipped: <span id="result-skipped"></span></p>
+            </div>
+          </div>
+          <div class="subject-performance glass-card">
+            <h3>Subject Wise Performance</h3>
+            <div class="subject-list">
+              <div><span>English</span><strong id="performance-english">0 / 40</strong></div>
+              <div><span>Physics</span><strong id="performance-physics">0 / 60</strong></div>
+              <div><span>Mathematics</span><strong id="performance-math">0 / 100</strong></div>
+            </div>
+          </div>
+          <div class="chart-panel glass-card">
+            <h3>Score Chart</h3>
+            <canvas id="score-chart" width="600" height="320"></canvas>
+          </div>
+          <div class="result-actions action-row">
+            <button id="download-pdf-btn" class="btn secondary-btn">Download Result as PDF</button>
+            <button id="print-btn" class="btn secondary-btn">Print Result</button>
+            <button id="restart-btn" class="btn accent-btn">Restart Test</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
